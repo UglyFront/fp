@@ -3,14 +3,14 @@ import {useState, useEffect, useRef} from 'react'
 
 function App() {
   const [name, setName] = useState('')
-  const [messages, setMessages] = useState([{}, {}])
+  const [messages, setMessages] = useState([])
 
   useEffect(() => {
     let userName = prompt("Привет! Как тебя зовут?")
     setName(userName)
 
     setInterval(() => {
-      fetch('http://localhost:5000/allmsg')
+      fetch('http://151.248.121.213:5000/allmsg')
       .then(res => res.json())
       .then(data => {
         if (data.length != messages.length) {
@@ -32,7 +32,7 @@ function App() {
       text: input,
       name: name
     }
-    fetch('http://localhost:5000/send_msg', {
+    fetch('http://151.248.121.213:5000/send_msg', {
       method: 'POST',
       headers: {
         'Content-type': "application/json"
