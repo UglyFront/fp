@@ -8,19 +8,25 @@ function App() {
   useEffect(() => {
     let userName = prompt("Привет! Как тебя зовут?")
     setName(userName)
+  }, [])
 
-    setInterval(() => {
+  useEffect(() => {
+    let x = setInterval(() => {
       fetch('http://151.248.121.213:5000/allmsg')
       .then(res => res.json())
       .then(data => {
+        setMessages(data)  
         if (data.length != messages.length) {
           bottom.current.scrollIntoView({ behavior: 'smooth' })
         }
-        setMessages(data)  
       })
      
     }, 500)
-  }, [])
+
+    return () => {
+      clearInterval(x)
+    }
+  }, [messages])
 
 
   const [input, setInput] = useState("")
